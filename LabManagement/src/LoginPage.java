@@ -17,7 +17,7 @@ public class LoginPage implements ActionListener {
 	JPanel panel;
 	JTextField name,mob; 
 	JLabel lname,lmob;
-	JButton login;
+	JButton login,signup;
 	String checkname;
 	String checkmob;
 	LoginPage(){
@@ -29,11 +29,14 @@ public class LoginPage implements ActionListener {
 		lmob=new JLabel("Mobile No: ");
 		login=new JButton("Login");
 		login.addActionListener(this);
+		signup=new JButton("sign up");
+		signup.addActionListener(this);
 		panel.add(lname);
 		panel.add(name);
 		panel.add(lmob);
 		panel.add(mob);
 		panel.add(login);
+		panel.add(signup);
 		frame.add(panel);
 		frame.setSize(250,250);
 		frame.setVisible(true);
@@ -48,6 +51,10 @@ public class LoginPage implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getSource()==signup) {
+			frame.dispose();
+			new SignUp();
+		}
 		if(e.getSource()==login) {
 			checkname=name.getText();
 			checkmob=mob.getText();
@@ -58,12 +65,13 @@ public class LoginPage implements ActionListener {
 				e1.printStackTrace();
 			}
 			try {
-				Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","root","root");
+				Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","vinithande4","Swarali123");
 				Statement stmt=con.createStatement();
 				ResultSet rs=stmt.executeQuery("select * from lab");
 				while(rs.next()) {
 					if(checkname.equals(rs.getString(1))){
 						if(checkmob.equals(rs.getString(2))) {
+							frame.dispose();
 							new Menu();
 						}
 						else {

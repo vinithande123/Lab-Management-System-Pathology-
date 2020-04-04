@@ -35,11 +35,13 @@ public class Menu implements ActionListener {
 		// TODO Auto-generated method stub
 		if(m.getSource()==test) {
 			System.out.println("Final test");
+			frame.dispose();
 			new FinalMenu();
 		}
 		if(m.getSource()==history) {
 			System.out.println("History");
-			//new HistoryMenu();
+			frame.dispose();
+			new HistoryMenu();
 		}
 	}
 

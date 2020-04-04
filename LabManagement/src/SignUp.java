@@ -21,7 +21,7 @@ public class SignUp implements ActionListener{
 	JTextField name,mob,email;
 	JLabel lname,lmob,lemail,lgender;
 	JRadioButton male,female;
-	JButton signup,clear,login;
+	JButton signup,clear;
 	
 	SignUp()
 	{
@@ -40,11 +40,9 @@ public class SignUp implements ActionListener{
 		lemail=new JLabel("Email Id: ");
 		lgender=new JLabel("Gender: ");
 		signup=new JButton("Sign Up!!");
-		login=new JButton("Login Page");
 		clear=new JButton("Reset");
 		clear.addActionListener(this);
 		clear.addActionListener(this);
-		login.addActionListener(this);
 		signup.addActionListener(this);
 		panel.add(lname);
 		panel.add(name);
@@ -56,10 +54,9 @@ public class SignUp implements ActionListener{
 		panel.add(male);
 		panel.add(female);
 		panel.add(signup);
-		panel.add(login);
 		panel.add(clear);
 		frame.add(panel);
-		frame.setSize(250,250);
+		frame.setSize(230,230);
 		frame.setVisible(true);
 		
 	}
@@ -78,13 +75,11 @@ public class SignUp implements ActionListener{
 			mob.setText("");
 			email.setText("");
 		}
-		if(arg0.getSource()==login) {
-			frame.dispose();
-			new LoginPage();
-		}
-		String sname = null,smob = null,semail = null,sgender = null;
+		String sname = "",smob = "",semail = "",sgender = "";
 		if(arg0.getSource()==signup) {
 			if(name.getText()!="" && mob.getText()!="") {
+				frame.dispose();
+				new Menu();
 				sname=name.getText();
 				smob=mob.getText();
 				semail=email.getText();
@@ -107,7 +102,7 @@ public class SignUp implements ActionListener{
 			e.printStackTrace();
 		}
 		try {
-			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","root","root");
+			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","vinithande4","Swarali123");
 			PreparedStatement pr=con.prepareStatement("insert into lab values(?,?,?,?)");
 			pr.setString(1, sname);
 			pr.setString(2, smob);
