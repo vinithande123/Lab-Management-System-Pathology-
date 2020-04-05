@@ -66,8 +66,9 @@ public class FinalMenu implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent fm) {
 		// TODO Auto-generated method stub
-		String sid="",sage = "",sdater = "",srefer = "",sb12="",suri="",stb="",smain="";
+		String sid="";String sage = "",sdater = "",srefer = "",sb12="",suri="",stb="",smain="";
 		if(fm.getSource()==submit) {
+			frame.dispose();
 			sid=id.getText();
 			sage=age.getText();
 			sdater=dater.getText();
@@ -92,7 +93,7 @@ public class FinalMenu implements ActionListener {
 			e.printStackTrace();
 		}
 		try {
-			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","root","root");
+			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","vinithande4","Swarali123");
 			PreparedStatement pr=con.prepareStatement("insert into labtest values(?,?,?,?,?)");
 			pr.setString(1, sid);
 			pr.setString(2, sage);
@@ -104,6 +105,7 @@ public class FinalMenu implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 }

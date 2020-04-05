@@ -42,7 +42,7 @@ public class Menu implements ActionListener {
 		if(m.getSource()==history) {
 			System.out.println("History");
 			frame.dispose();
-			new HistoryMenu();
+			new Sampleid();
 		}
 	}
 

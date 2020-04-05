@@ -102,7 +102,7 @@ public class SignUp implements ActionListener{
 			e.printStackTrace();
 		}
 		try {
-			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","root","root");
+			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","vinithande4","Swarali123");
 			PreparedStatement pr=con.prepareStatement("insert into lab values(?,?,?,?)");
 			pr.setString(1, sname);
 			pr.setString(2, smob);

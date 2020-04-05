@@ -17,7 +17,7 @@ public class LoginPage implements ActionListener {
 	JPanel panel;
 	JTextField name,mob; 
 	JLabel lname,lmob;
-	JButton login,signup;
+	JButton login,signup,admin;
 	String checkname;
 	String checkmob;
 	LoginPage(){
@@ -31,12 +31,15 @@ public class LoginPage implements ActionListener {
 		login.addActionListener(this);
 		signup=new JButton("sign up");
 		signup.addActionListener(this);
+		admin=new JButton("Admin ");
+		admin.addActionListener(this);
 		panel.add(lname);
 		panel.add(name);
 		panel.add(lmob);
 		panel.add(mob);
 		panel.add(login);
 		panel.add(signup);
+		panel.add(admin);
 		frame.add(panel);
 		frame.setSize(250,250);
 		frame.setVisible(true);
@@ -65,7 +68,7 @@ public class LoginPage implements ActionListener {
 				e1.printStackTrace();
 			}
 			try {
-				Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","root","root");
+				Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","vinithande4","Swarali123");
 				Statement stmt=con.createStatement();
 				ResultSet rs=stmt.executeQuery("select * from lab");
 				while(rs.next()) {
@@ -89,6 +92,11 @@ public class LoginPage implements ActionListener {
 				e1.printStackTrace();
 			}
 			
+		}
+		if(e.getSource()==admin)
+		{
+			frame.dispose();
+			new Admin1();
 		}
 	}
 
