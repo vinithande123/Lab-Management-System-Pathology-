@@ -65,7 +65,7 @@ public class LoginPage implements ActionListener {
 				e1.printStackTrace();
 			}
 			try {
-				Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","vinithande4","Swarali123");
+				Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","root","root");
 				Statement stmt=con.createStatement();
 				ResultSet rs=stmt.executeQuery("select * from lab");
 				while(rs.next()) {
