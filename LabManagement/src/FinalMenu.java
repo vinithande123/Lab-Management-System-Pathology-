@@ -10,6 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -20,10 +21,10 @@ public class FinalMenu implements ActionListener {
 	JLabel lid,lage,lrefer,lwtest,ldater,ltest;    //lname,lgender
 	JComboBox city;
 	JCheckBox c,cpp,java;
-	JButton submit;
+	JButton submit,button;
 	
 	FinalMenu(){
-		frame=new JFrame();
+		frame=new JFrame("ID Register");
 		panel=new JPanel();
 		id=new JTextField(5);
 		age=new JTextField(10);
@@ -40,7 +41,9 @@ public class FinalMenu implements ActionListener {
 		cpp=new JCheckBox("Urine Test");
 		java=new JCheckBox("TB test");
 		submit=new JButton("Submit");
+		button=new JButton("Jump to Menu");
 		submit.addActionListener(this);
+		button.addActionListener(this);
 		panel.add(lid);
 		panel.add(id);
 		panel.add(lage);
@@ -53,6 +56,7 @@ public class FinalMenu implements ActionListener {
 		panel.add(c);
 		panel.add(cpp);
 		panel.add(java);
+		panel.add(button);
 		panel.add(submit);
 		frame.add(panel);
 		frame.setVisible(true);
@@ -66,9 +70,18 @@ public class FinalMenu implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent fm) {
 		// TODO Auto-generated method stub
+		if(fm.getSource()==button) {
+			new Menu();
+			frame.dispose();
+		}
 		String sid="";String sage = "",sdater = "",srefer = "",sb12="",suri="",stb="",smain="";
 		if(fm.getSource()==submit) {
-			frame.dispose();
+			int a=JOptionPane.showConfirmDialog(frame, "Do you want SUBMIT");
+			if(a==JOptionPane.YES_OPTION){
+				JOptionPane.showMessageDialog(frame, "SUBMITTED successfully!!!");
+				frame.dispose();
+				new Menu();
+			}
 			sid=id.getText();
 			sage=age.getText();
 			sdater=dater.getText();
@@ -85,26 +98,27 @@ public class FinalMenu implements ActionListener {
 				smain=smain.concat(","+stb);
 			}
 			System.out.println(smain);
+			try {
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","root","root");
+				PreparedStatement pr=con.prepareStatement("insert into labtest values(?,?,?,?,?)");
+				pr.setString(1, sid);
+				pr.setString(2, sage);
+				pr.setString(3, sdater);
+				pr.setString(4, srefer);
+				pr.setString(5, smain);
+				pr.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","vinithande4","Swarali123");
-			PreparedStatement pr=con.prepareStatement("insert into labtest values(?,?,?,?,?)");
-			pr.setString(1, sid);
-			pr.setString(2, sage);
-			pr.setString(3, sdater);
-			pr.setString(4, srefer);
-			pr.setString(5, smain);
-			pr.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 	}
 

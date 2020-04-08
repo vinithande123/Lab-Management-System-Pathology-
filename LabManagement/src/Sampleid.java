@@ -2,6 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,7 @@ import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -20,7 +22,7 @@ public class Sampleid implements ActionListener{
 	JButton button;
 	Sampleid()
 	{
-		frame=new JFrame();
+		frame=new JFrame("ID check");
 		panel=new JPanel();
 		tsid=new JTextField(5);
 		lsid=new JLabel("Enter your sample ID: ");
@@ -39,20 +41,22 @@ public class Sampleid implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
+		
 		String sid="",dsid="";
 		sid=tsid.getText();
 		
 		if(e.getSource()==button)
-		{	System.out.println("kkkk");
+		{	
+			System.out.println("kkkk");
 			try {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			Connection con;
             try {
-                con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "vinithande4", "Swarali123");
+                Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "root", "root");
                 Statement stmt=con.createStatement();
                 ResultSet rs=stmt.executeQuery("select * from admin");
                 String db12="",durine="",dtb="";
@@ -62,7 +66,9 @@ public class Sampleid implements ActionListener{
                     db12=rs.getString(2);
                     durine=rs.getString(3);
                     dtb=rs.getString(4);
-                    if(dsid==sid) {
+                    System.out.println(dsid);
+                    if(sid.equals(rs.getString(1)))
+                    {
                     	frame.dispose();
                     	new HistoryMenu(dsid,db12,durine,dtb);
                     }

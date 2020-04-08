@@ -19,7 +19,7 @@ public class Admin1 implements ActionListener{
 	JButton button;
 	Admin1()
 	{
-		frame=new JFrame();
+		frame=new JFrame("Admin");
 		panel=new JPanel();
 		tsid=new JTextField(5);
 		tb12=new JTextField(5);
@@ -30,6 +30,7 @@ public class Admin1 implements ActionListener{
 		lurine=new JLabel("Urine test result ");
 		ltb=new JLabel("Tb result ");
 		button=new JButton("Proceed!!");
+		button.addActionListener(this);
 		panel.add(lsid);
 		panel.add(tsid);
 		panel.add(lb12);
@@ -45,18 +46,21 @@ public class Admin1 implements ActionListener{
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Admin1();
 	}
 	@Override
 	public void actionPerformed(ActionEvent obj) {
 		String dsid="",db12="",durine="",dtb="";
 		// TODO Auto-generated method stub
-		db12=tb12.getText();
-		durine=turine.getText();
-		dtb=ttb.getText();
+		
 		if(obj.getSource()==button)
 		{
-			
+			dsid=tsid.getText();
+			db12=tb12.getText();
+			durine=turine.getText();
+			dtb=ttb.getText();
+			frame.dispose();
+			new LoginPage();
+		
 			try {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 			}catch (ClassNotFoundException e) {
@@ -64,8 +68,8 @@ public class Admin1 implements ActionListener{
 				e.printStackTrace();
 			}
 			try {
-				Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","vinithande4","Swarali123");
-				PreparedStatement pr=con.prepareStatement("insert into admin values(?,?,?,?,?)");
+				Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","root","root");
+				PreparedStatement pr=con.prepareStatement("insert into admin values(?,?,?,?)");
 				pr.setString(1, dsid);
 				pr.setString(2, db12);
 				pr.setString(3, durine);
@@ -75,7 +79,7 @@ public class Admin1 implements ActionListener{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			frame.dispose();
+			
 		}
 	}
 

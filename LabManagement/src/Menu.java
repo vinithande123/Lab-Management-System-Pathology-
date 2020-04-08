@@ -5,22 +5,26 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
 public class Menu implements ActionListener {
 	JFrame frame;
 	JPanel panel;
-	JButton test,history;
+	JButton test,history,logout;
 	Menu(){
-		frame=new JFrame();
+		frame=new JFrame("Menu");
 		panel=new JPanel();
 		test=new JButton("New Test");
 		history=new JButton("History");
+		logout=new JButton("Logout");
 		test.addActionListener(this);
 		history.addActionListener(this);
+		logout.addActionListener(this);
 		panel.add(test);
 		panel.add(history);
+		panel.add(logout);
 		frame.add(panel);
 		frame.setSize(250,250);
 		frame.setVisible(true);
@@ -43,6 +47,15 @@ public class Menu implements ActionListener {
 			System.out.println("History");
 			frame.dispose();
 			new Sampleid();
+		}
+		if(m.getSource()==logout) {
+			int a=JOptionPane.showConfirmDialog(frame, "Do you want Logout");
+			if(a==JOptionPane.YES_OPTION){
+				JOptionPane.showMessageDialog(frame, "Logged out successfully!!!");
+				frame.dispose();
+				new LoginPage();
+			}
+			
 		}
 	}
 
