@@ -62,7 +62,7 @@ public class LoginPage implements ActionListener {
 		if(e.getSource()==login) {
 			checkname=name.getText();
 			checkmob=mob.getText();
-			if(checkname.equals(checkname) && checkmob.equals(checkmob)) {
+			if(checkname.equals("admin") && checkmob.equals("1234")) {
 				frame.dispose();
 				new Admin1();
 			}
